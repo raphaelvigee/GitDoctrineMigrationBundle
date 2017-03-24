@@ -34,6 +34,13 @@ class MySQLDumper
     private $fs;
 
 
+    /**
+     * MySQLDumper constructor.
+     *
+     * @param EntityManagerInterface $em
+     * @param GitService             $git
+     * @param                        $kernelRootDir
+     */
     public function __construct(EntityManagerInterface $em, GitService $git, $kernelRootDir)
     {
         $this->em = $em;
@@ -42,6 +49,11 @@ class MySQLDumper
         $this->fs = new Filesystem();
     }
 
+    /**
+     * @param $hash
+     *
+     * @return string
+     */
     public function getDumpPath($hash)
     {
         $outFolder = sprintf('%s/../var/git-doctrine-migration', $this->kernelRootDir);
@@ -55,6 +67,11 @@ class MySQLDumper
         return $outPath;
     }
 
+    /**
+     * @param $hash
+     *
+     * @return bool
+     */
     public function dumpExists($hash)
     {
         return $this->fs->exists($this->getDumpPath($hash));
@@ -87,6 +104,10 @@ class MySQLDumper
         exec($command);
     }
 
+    /**
+     * @param      $filePath
+     * @param bool $force
+     */
     public function restore($filePath, $force = true)
     {
         $connection = $this->em->getConnection();
