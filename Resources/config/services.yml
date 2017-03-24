@@ -1,0 +1,6 @@
+services:
+    raphael_vigee_git_doctrine_migration.mysql.dumper:
+        class: RaphaelVigee\GitDoctrineMigrationBundle\Dumper\MySQLDumper
+        arguments:
+            - "@doctrine.orm.entity_manager"
+            - "%kernel.root_dir%"

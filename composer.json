@@ -1,0 +1,11 @@
+{
+    "name": "raphaelvigee/git-doctrine-migration-bundle",
+    "type": "symfony-bundle",
+    "authors": [
+        {
+            "name": "Raphael Vigee",
+            "email": "contact@raphaelvigee.com"
+        }
+    ],
+    "require": {}
+}
