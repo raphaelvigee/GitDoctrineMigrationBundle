@@ -1,3 +1,0 @@
-raphael_vigee_git_doctrine_migration_homepage:
-    path:     /
-    defaults: { _controller: RaphaelVigeeGitDoctrineMigrationBundle:Default:index }

@@ -3,4 +3,15 @@ services:
         class: RaphaelVigee\GitDoctrineMigrationBundle\Dumper\MySQLDumper
         arguments:
             - "@doctrine.orm.entity_manager"
+            - "@raphael_vigee_git_doctrine_migration.git.service"
+            - "%kernel.root_dir%"
+
+    raphael_vigee_git_doctrine_migration.git.service:
+        class: RaphaelVigee\GitDoctrineMigrationBundle\Service\GitService
+        arguments:
+            - "%kernel.root_dir%"
+
+    raphael_vigee_git_doctrine_migration.command.service:
+        class: RaphaelVigee\GitDoctrineMigrationBundle\Service\GitService
+        arguments:
             - "%kernel.root_dir%"
