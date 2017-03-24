@@ -42,6 +42,24 @@ class MySQLDumper
         $this->fs = new Filesystem();
     }
 
+    public function getDumpPath($hash)
+    {
+        $outFolder = sprintf('%s/../var/git-doctrine-migration', $this->kernelRootDir);
+
+        if (!$this->fs->exists($outFolder)) {
+            $this->fs->mkdir($outFolder, 0700);
+        }
+
+        $outPath = sprintf('%s/%s.sql', $outFolder, $hash);
+
+        return $outPath;
+    }
+
+    public function dumpExists($hash)
+    {
+        return $this->fs->exists($this->getDumpPath($hash));
+    }
+
     /**
      * Dump
      */
@@ -55,13 +73,7 @@ class MySQLDumper
 
         $currentHash = $this->git->getCurrentHash();
 
-        $outFolder = sprintf('%s/../var/git-doctrine-migration', $this->kernelRootDir);
-
-        if (!$this->fs->exists($outFolder)) {
-            $this->fs->mkdir($outFolder, 0700);
-        }
-
-        $outPath = sprintf('%s/%s.sql', $outFolder, $currentHash);
+        $outPath = $this->getDumpPath($currentHash);
 
         $command = sprintf(
             'mysqldump --user="%s" --password="%s" --host="%s" "%s" > "%s"',
@@ -84,7 +96,7 @@ class MySQLDumper
         $database = $connection->getDatabase();
 
         $command = sprintf(
-            'mysql -u "%s" -p "%s" -h "%s" %s "%s" < "%s"',
+            'mysql --user="%s" --password="%s" --host="%s" %s "%s" < "%s"',
             $user,
             $password,
             $host,
@@ -92,8 +104,6 @@ class MySQLDumper
             $database,
             $filePath
         );
-
-        die(dump($command));
 
         exec($command);
     }
