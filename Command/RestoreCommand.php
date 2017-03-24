@@ -12,7 +12,7 @@ class RestoreCommand extends ContainerAwareCommand
     {
         $this
             // the name of the command (the part after "bin/console")
-            ->setName('git:restore')
+            ->setName('doctrine:migrations:restore')
             // the short description shown while running "php bin/console list"
             ->setDescription('Restore DB dump')
             // the full command description shown when running the command with
